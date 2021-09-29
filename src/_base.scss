@@ -22,3 +22,10 @@ body {
   font-family: "Roboto", sans-serif;
   letter-spacing: 0.1px;
 }
+
+@mixin line-clamp($num) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+}
