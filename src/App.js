@@ -3,9 +3,11 @@ import "./_app.scss";
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 function App() {
   const Layout = ({ children }) => {
@@ -28,17 +30,24 @@ function App() {
     );
   };
 
+  const { accessToken, loading } = useSelector((state) => state);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!accessToken && !loading) {
+      history.push("/login");
+    }
+  }, [accessToken, loading, history]);
+
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Layout>
-            <HomeScreen />
-          </Layout>
-        </Route>
-        <Route path="/auth" component={LoginScreen} />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path="/">
+        <Layout>
+          <HomeScreen />
+        </Layout>
+      </Route>
+      <Route path="/login" component={LoginScreen} />
+    </Switch>
   );
 }
 
