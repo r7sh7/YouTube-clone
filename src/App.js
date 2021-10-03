@@ -30,7 +30,7 @@ function App() {
     );
   };
 
-  const { accessToken, loading } = useSelector((state) => state);
+  const { accessToken, loading } = useSelector((state) => state.auth);
   const history = useHistory();
 
   useEffect(() => {

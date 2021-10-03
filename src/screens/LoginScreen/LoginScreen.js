@@ -11,7 +11,7 @@ const LoginScreen = () => {
     dispatch(login());
   };
 
-  const accessToken = useSelector((state) => state.accessToken);
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const history = useHistory();
   useEffect(() => {
     if (accessToken) {
