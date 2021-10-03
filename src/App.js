@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 
 function App() {
   const Layout = ({ children }) => {
@@ -47,6 +47,9 @@ function App() {
         </Layout>
       </Route>
       <Route path="/login" component={LoginScreen} />
+      <Route>
+        <Redirect to="/" />
+      </Route>
     </Switch>
   );
 }
