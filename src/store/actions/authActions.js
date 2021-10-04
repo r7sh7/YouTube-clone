@@ -9,6 +9,7 @@ import {
 export const login = (dispatch) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
+    provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
     auth
       .signInWithPopup(provider)
       .then((res) => {
