@@ -24,6 +24,8 @@ const Video = ({ video }) => {
   const seconds = moment.duration(duration).asSeconds();
   const videoDuration = moment.utc(seconds * 1000).format("mm:ss");
 
+  const videoId = id?.videoId || id; //hack to get the proper id
+
   useEffect(() => {
     const get_video_details = async () => {
       const {
@@ -31,14 +33,14 @@ const Video = ({ video }) => {
       } = await request("/videos", {
         params: {
           part: "contentDetails,statistics",
-          id: id,
+          id: videoId,
         },
       });
       setViews(items[0].statistics.viewCount); //in all these cases items[0] is unnecessary but required for the youtube api to work
       setDuration(items[0].contentDetails.duration);
     };
     get_video_details();
-  }, [id]);
+  }, [videoId]);
 
   useEffect(() => {
     const get_channel_details = async () => {

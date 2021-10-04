@@ -9,7 +9,7 @@ import "./_homescreen.scss";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const { videos } = useSelector((state) => state.video);
+  const { videos } = useSelector((state) => state.homeVideos);
 
   useEffect(() => {
     dispatch(getPopularVideos());

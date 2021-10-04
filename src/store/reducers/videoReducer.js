@@ -8,9 +8,10 @@ const initState = {
   videos: [],
   nextPageToken: null,
   loading: false,
+  activeCategory: "All",
 };
 
-export const videoReducer = (state = initState, action) => {
+export const homeVideosReducer = (state = initState, action) => {
   switch (action.type) {
     case HOME_VIDEOS_REQUEST:
       return {
@@ -23,6 +24,7 @@ export const videoReducer = (state = initState, action) => {
         videos: action.payload.videos,
         nextPageToken: action.payload.nextPageToken,
         loading: false,
+        activeCategory: action.payload.category,
       };
     case HOME_VIDEOS_FAILURE:
       return {
