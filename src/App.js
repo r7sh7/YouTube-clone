@@ -8,6 +8,7 @@ import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router";
+import WatchScreen from "./screens/WatchScreen/WatchScreen";
 
 function App() {
   const Layout = ({ children }) => {
@@ -47,6 +48,11 @@ function App() {
         </Layout>
       </Route>
       <Route path="/login" component={LoginScreen} />
+      <Route exact path="/watch/:id">
+        <Layout>
+          <WatchScreen />
+        </Layout>
+      </Route>
       <Route>
         <Redirect to="/" />
       </Route>
