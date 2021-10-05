@@ -1,5 +1,5 @@
 import React from "react";
-import "./_sidebar.scss";
+import "./sidebar.scss";
 import {
   MdHome,
   MdSubscriptions,

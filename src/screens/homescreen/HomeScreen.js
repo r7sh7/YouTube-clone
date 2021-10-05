@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import CategoriesBar from "../../components/categoriesbar/CategoriesBar";
 import Video from "../../components/video/Video";
 import { getPopularVideos } from "../../store/actions/videoActions";
-import "./_homescreen.scss";
+import "./homescreen.scss";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

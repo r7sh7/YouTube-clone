@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./_video.scss";
+import "./video.scss";
 import { AiFillEye } from "react-icons/ai";
 import moment from "moment";
 import numeral from "numeral";
