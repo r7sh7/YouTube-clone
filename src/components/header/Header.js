@@ -1,5 +1,5 @@
 import React from "react";
-import "./header.scss";
+import "./_header.scss";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdApps, MdNotifications, MdAccountCircle } from "react-icons/md";
