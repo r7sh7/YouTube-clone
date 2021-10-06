@@ -1,35 +1,61 @@
 import moment from "moment";
 import numeral from "numeral";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./_videoMetaData.scss";
 import { MdThumbUp, MdThumbDown, MdAccountCircle } from "react-icons/md";
 import ReactShowMoreText from "react-show-more-text";
-const VideoMetaData = () => {
+import request from "../../api";
+const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
+  const { publishedAt, channelId, title, description, channelTitle } = snippet;
+  const { viewCount, likeCount, dislikeCount } = statistics;
+
+  const [channelIcon, setChannelIcon] = useState();
+  const [channelStats, setChannelStats] = useState();
+
+  useEffect(() => {
+    const get_channel_details = async () => {
+      const {
+        data: { items },
+      } = await request.get("/channels", {
+        params: {
+          part: "snippet,statistics",
+          id: channelId,
+        },
+      });
+      setChannelIcon(items[0].snippet.thumbnails.default);
+      setChannelStats(items[0].statistics);
+      console.log(items);
+    };
+    get_channel_details();
+  }, [channelId]);
+
   return (
     <div className="videoMetaData">
       <div className="videoMetaData__top">
-        <h5>Video Title</h5>
+        <h5>{title}</h5>
         <div className="videoMetaData__top__stats">
           <span>
-            {numeral(716237).format("0.a")} Views •{" "}
-            {moment("05-09-2020").fromNow()}{" "}
+            {numeral(viewCount).format("0.a")} Views •{" "}
+            {moment(publishedAt).fromNow()}{" "}
           </span>
           <div className="videoMetaData__top__stats__icons">
             <span>
-              <MdThumbUp size={26} /> 999
+              <MdThumbUp size={26} /> {numeral(likeCount).format("0.a")}
             </span>
             <span>
-              <MdThumbDown size={26} /> 14
+              <MdThumbDown size={26} /> {numeral(dislikeCount).format("0.a")}
             </span>
           </div>
         </div>
       </div>
       <div className="videoMetaData__channel">
         <div className="videoMetaData__channel__details">
-          <MdAccountCircle size={50} />
+          <img src={channelIcon?.url} alt="channel icon" />
           <div>
-            <span style={{ color: "#fff" }}>Channel Name</span>
-            <span>{numeral(10000).format("0.a")} Subscribers</span>
+            <span style={{ color: "#fff" }}>{channelTitle}</span>
+            <span>
+              {numeral(channelStats?.subscriberCount).format("0.a")} Subscribers
+            </span>
           </div>
         </div>
         <button>SUBSCRIBE</button>
@@ -42,23 +68,7 @@ const VideoMetaData = () => {
           anchorClass="showMoreText"
           expanded={false}
         >
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. Many desktop publishing packages and web
-          page editors now use Lorem Ipsum as their default model text, and a
-          search for 'lorem ipsum' will uncover many web sites still in their
-          infancy. Various versions have evolved over the years, sometimes by
-          accident, sometimes on purpose.It is a long established fact that a
-          reader will be distracted by the readable content of a page when
-          looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using
-          'Content here, content here', making it look like readable English.
-          Many desktop publishing packages and web page editors now use Lorem
-          Ipsum as their default model text, and a search for 'lorem ipsum' will
-          uncover many web sites still in their infancy. Various versions have
-          evolved over the years, sometimes by accident, sometimes on purpose
+          {description}
         </ReactShowMoreText>
       </div>
     </div>

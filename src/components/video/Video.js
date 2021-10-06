@@ -4,6 +4,7 @@ import { AiFillEye } from "react-icons/ai";
 import moment from "moment";
 import numeral from "numeral";
 import request from "../../api";
+import { useHistory } from "react-router";
 
 const Video = ({ video }) => {
   const {
@@ -25,6 +26,8 @@ const Video = ({ video }) => {
   const videoDuration = moment.utc(seconds * 1000).format("mm:ss");
 
   const videoId = id?.videoId || id; //hack to get the proper id
+
+  const history = useHistory();
 
   useEffect(() => {
     const get_video_details = async () => {
@@ -57,8 +60,12 @@ const Video = ({ video }) => {
     get_channel_details();
   }, [channelId]);
 
+  const handleVideoClick = () => {
+    history.push(`/watch/${videoId}`);
+  };
+
   return (
-    <div className="video">
+    <div className="video" onClick={handleVideoClick}>
       <div className="video__top">
         <img src={medium.url} alt="Video Preview" />
         <span>{videoDuration}</span>
