@@ -1,33 +1,24 @@
 import moment from "moment";
 import numeral from "numeral";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./_videoMetaData.scss";
-import { MdThumbUp, MdThumbDown, MdAccountCircle } from "react-icons/md";
+import { MdThumbUp, MdThumbDown } from "react-icons/md";
 import ReactShowMoreText from "react-show-more-text";
-import request from "../../api";
+import { useDispatch } from "react-redux";
+import { getChannelDetails } from "../../store/actions/channelActions";
+import { useSelector } from "react-redux";
 const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
   const { publishedAt, channelId, title, description, channelTitle } = snippet;
   const { viewCount, likeCount, dislikeCount } = statistics;
 
-  const [channelIcon, setChannelIcon] = useState();
-  const [channelStats, setChannelStats] = useState();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const get_channel_details = async () => {
-      const {
-        data: { items },
-      } = await request.get("/channels", {
-        params: {
-          part: "snippet,statistics",
-          id: channelId,
-        },
-      });
-      setChannelIcon(items[0].snippet.thumbnails.default);
-      setChannelStats(items[0].statistics);
-      console.log(items);
-    };
-    get_channel_details();
-  }, [channelId]);
+    dispatch(getChannelDetails(channelId));
+  }, [dispatch, channelId]);
+
+  const { snippet: channelSnippet, statistics: channelStatistics } =
+    useSelector((state) => state.channelDetails.channel);
 
   return (
     <div className="videoMetaData">
@@ -50,11 +41,15 @@ const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
       </div>
       <div className="videoMetaData__channel">
         <div className="videoMetaData__channel__details">
-          <img src={channelIcon?.url} alt="channel icon" />
+          <img
+            src={channelSnippet?.thumbnails.default.url}
+            alt="channel icon"
+          />
           <div>
             <span style={{ color: "#fff" }}>{channelTitle}</span>
             <span>
-              {numeral(channelStats?.subscriberCount).format("0.a")} Subscribers
+              {numeral(channelStatistics?.subscriberCount).format("0.a")}{" "}
+              Subscribers
             </span>
           </div>
         </div>
