@@ -1,17 +1,23 @@
 import moment from "moment";
 import React from "react";
-import { MdAccountCircle } from "react-icons/md";
 import "./_comment.scss";
 
-const Comment = () => {
+const Comment = ({
+  comment: {
+    textOriginal,
+    authorDisplayName,
+    authorProfileImageUrl,
+    publishedAt,
+  },
+}) => {
   return (
     <div className="comment">
-      <MdAccountCircle size={45} />
+      <img src={authorProfileImageUrl} alt="profile pic" />
       <div className="comment__body">
         <span className="comment__header">
-          Rishi Bolinjkar • {moment("02-04-2021").fromNow()}
+          {authorDisplayName} • {moment(publishedAt).fromNow()}
         </span>
-        <span>This is so dope!</span>
+        <span>{textOriginal}</span>
       </div>
     </div>
   );
