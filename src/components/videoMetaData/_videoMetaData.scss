@@ -43,26 +43,45 @@
         line-height: 1.2rem;
         font-size: 0.9rem;
       }
+
+      img {
+        border-radius: 50%;
+        height: 3rem;
+      }
     }
-    button {
+
+    &__subscribed {
       padding: 1rem;
       margin: 0.5rem 0;
       margin-right: 1rem;
-      color: #fff;
-      background-color: red;
-      border: 1px solid red;
       border-radius: 0.1rem;
       line-height: 0.1rem;
       font-size: 1rem;
       align-items: center;
+      color: $text-color;
+      background-color: gray;
+      border: none;
+    }
+
+    &__notSubscribed {
+      padding: 1rem;
+      margin: 0.5rem 0;
+      margin-right: 1rem;
+      border-radius: 0.1rem;
+      line-height: 0.1rem;
+      font-size: 1rem;
+      align-items: center;
+      color: #fff;
+      background-color: red;
+      border: none;
     }
   }
 
   &__description {
     font-size: 0.9rem;
-    margin-top: 1rem;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
     white-space: pre-line;
-    margin-top: 1rem;
     border-bottom: 0.2px solid $border-color;
     color: #fff;
   }

@@ -3,6 +3,9 @@ import {
   HOME_VIDEOS_FAILURE,
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_SUCCESS,
+  RELATED_VIDEO_FAILURE,
+  RELATED_VIDEO_REQUEST,
+  RELATED_VIDEO_SUCCESS,
   SELECTED_VIDEO_FAILURE,
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
@@ -20,7 +23,6 @@ export const getPopularVideos = () => async (dispatch) => {
         pageToken: "",
       },
     });
-    console.log(data);
     dispatch({
       type: HOME_VIDEOS_SUCCESS,
       payload: {
@@ -72,5 +74,22 @@ export const getVideoById = (id) => async (dispatch) => {
     dispatch({ type: SELECTED_VIDEO_SUCCESS, payload: data.items[0] });
   } catch (err) {
     dispatch({ type: SELECTED_VIDEO_FAILURE, payload: err.message });
+  }
+};
+
+export const getRelatedVideos = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: RELATED_VIDEO_REQUEST });
+    const { data } = await request.get("/search", {
+      params: {
+        part: "snippet",
+        relatedToVideoId: id,
+        maxResults: 15,
+        type: "video",
+      },
+    });
+    dispatch({ type: RELATED_VIDEO_SUCCESS, payload: data.items });
+  } catch (err) {
+    dispatch({ type: RELATED_VIDEO_FAILURE, payload: err.response.message });
   }
 };

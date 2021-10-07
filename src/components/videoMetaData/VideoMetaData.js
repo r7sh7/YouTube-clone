@@ -5,7 +5,10 @@ import "./_videoMetaData.scss";
 import { MdThumbUp, MdThumbDown } from "react-icons/md";
 import ReactShowMoreText from "react-show-more-text";
 import { useDispatch } from "react-redux";
-import { getChannelDetails } from "../../store/actions/channelActions";
+import {
+  getChannelDetails,
+  getSubscriptionStatus,
+} from "../../store/actions/channelActions";
 import { useSelector } from "react-redux";
 const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
   const { publishedAt, channelId, title, description, channelTitle } = snippet;
@@ -13,12 +16,15 @@ const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getChannelDetails(channelId));
-  }, [dispatch, channelId]);
-
   const { snippet: channelSnippet, statistics: channelStatistics } =
     useSelector((state) => state.channelDetails.channel);
+
+  const { subscriptionStatus } = useSelector((state) => state.channelDetails);
+
+  useEffect(() => {
+    dispatch(getChannelDetails(channelId));
+    dispatch(getSubscriptionStatus(channelId));
+  }, [dispatch, channelId]);
 
   return (
     <div className="videoMetaData">
@@ -53,7 +59,15 @@ const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
             </span>
           </div>
         </div>
-        <button>SUBSCRIBE</button>
+        <button
+          className={
+            subscriptionStatus
+              ? "videoMetaData__channel__subscribed"
+              : "videoMetaData__channel__notSubscribed"
+          }
+        >
+          {subscriptionStatus ? "SUBSCRIBED" : "SUBSCRIBE"}
+        </button>
       </div>
       <div className="videoMetaData__description">
         <ReactShowMoreText

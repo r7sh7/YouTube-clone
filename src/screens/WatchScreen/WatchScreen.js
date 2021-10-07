@@ -5,16 +5,23 @@ import { useParams } from "react-router";
 import Comments from "../../components/comments/Comments";
 import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import VideoMetaData from "../../components/videoMetaData/VideoMetaData";
-import { getVideoById } from "../../store/actions/videoActions";
+import {
+  getRelatedVideos,
+  getVideoById,
+} from "../../store/actions/videoActions";
 import "./watchScreen.scss";
 
 const WatchScreen = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { video, loading } = useSelector((state) => state.selectedVideo);
+  const { videos, loading: relatedVideosLoading } = useSelector(
+    (state) => state.relatedVideos
+  );
 
   useEffect(() => {
     dispatch(getVideoById(id));
+    dispatch(getRelatedVideos(id));
   }, [dispatch, id]);
 
   return (
@@ -35,12 +42,16 @@ const WatchScreen = () => {
         ) : (
           <div>Loading...</div>
         )}
-        <Comments />
+        <Comments videoId={id} commentCount={video?.statistics.commentCount} />
       </Col>
       <Col lg={4}>
-        {[...Array(20)].map(() => (
-          <VideoHorizontal />
-        ))}
+        {!relatedVideosLoading &&
+          videos
+            ?.filter((video) => video.snippet)
+            .map((video) => {
+              console.log(video);
+              return <VideoHorizontal video={video} key={video.id.videoId} />;
+            })}
       </Col>
     </Row>
   );
