@@ -11,6 +11,11 @@
     margin-bottom: 1rem;
     width: 100%;
 
+    img {
+      border-radius: 50%;
+      height: 2.5rem;
+    }
+
     form {
       flex: 1;
       display: flex;
@@ -34,5 +39,9 @@
       color: #fff;
       padding: 0.6rem;
     }
+  }
+
+  &__list {
+    margin-bottom: 2rem;
   }
 }

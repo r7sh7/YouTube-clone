@@ -48,10 +48,9 @@ const WatchScreen = () => {
         {!relatedVideosLoading &&
           videos
             ?.filter((video) => video.snippet)
-            .map((video) => {
-              console.log(video);
-              return <VideoHorizontal video={video} key={video.id.videoId} />;
-            })}
+            .map((video) => (
+              <VideoHorizontal video={video} key={video.id.videoId} />
+            ))}
       </Col>
     </Row>
   );

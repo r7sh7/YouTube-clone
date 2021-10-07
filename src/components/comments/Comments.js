@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./_comments.scss";
 import Comment from "../comment/Comment";
-import { MdAccountCircle } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addComment,
@@ -14,6 +13,7 @@ const Comments = ({ videoId, commentCount }) => {
   const dispatch = useDispatch();
 
   const { comments } = useSelector((state) => state.commentList);
+  const { user } = useSelector((state) => state.auth);
 
   const commentsSnippets = comments?.map(
     (comment) => comment.snippet.topLevelComment.snippet
@@ -34,7 +34,7 @@ const Comments = ({ videoId, commentCount }) => {
     <div className="comments">
       <p>{numeral(commentCount).format("0.a")} Comments</p>
       <div className="comments__form">
-        <MdAccountCircle size={45} />
+        <img src={user.photoURL} alt="profile pic" />
         <form onSubmit={handleFormSubmit}>
           <input
             type="text"
