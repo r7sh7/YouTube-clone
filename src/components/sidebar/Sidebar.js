@@ -11,10 +11,11 @@ import {
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/actions/authActions";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ toggleSidebar }) => {
-  const component = (icon, title, clickHandler) => (
-    <li onClick={clickHandler}>
+  const component = (icon, title) => (
+    <li>
       {icon}
       <span>{title}</span>
     </li>
@@ -26,14 +27,12 @@ const Sidebar = ({ toggleSidebar }) => {
     dispatch(logout());
   };
 
-  const handleHomeClick = () => {
-    history.push("/");
-  };
-
   return (
     <nav className={toggleSidebar ? "sidebar open" : "sidebar"}>
-      {component(<MdHome size={23} />, "Home", handleHomeClick)}
-      {component(<MdSubscriptions size={23} />, "Subscriptions")}
+      <Link to="/">{component(<MdHome size={23} />, "Home")}</Link>
+      <Link to="/feed/subscriptions">
+        {component(<MdSubscriptions size={23} />, "Subscriptions")}
+      </Link>
       {component(<MdThumbUp size={23} />, "Liked")}
       {component(<MdExplore size={23} />, "Explore")}
       {component(<MdHistory size={23} />, "History")}
