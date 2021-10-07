@@ -9,6 +9,7 @@ import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router";
 import WatchScreen from "./screens/WatchScreen/WatchScreen";
+import SearchScreen from "./screens/SearchScreen/SearchScreen";
 
 function App() {
   const Layout = ({ children }) => {
@@ -51,6 +52,11 @@ function App() {
       <Route exact path="/watch/:id">
         <Layout>
           <WatchScreen />
+        </Layout>
+      </Route>
+      <Route exact path="/search/:id">
+        <Layout>
+          <SearchScreen />
         </Layout>
       </Route>
       <Route>
