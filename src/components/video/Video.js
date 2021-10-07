@@ -4,6 +4,7 @@ import { AiFillEye } from "react-icons/ai";
 import moment from "moment";
 import numeral from "numeral";
 import request from "../../api";
+import { useHistory } from "react-router";
 
 const Video = ({ video }) => {
   const {
@@ -17,48 +18,52 @@ const Video = ({ video }) => {
     },
   } = video;
 
-  const [views, setViews] = useState(null);
-  const [duration, setDuration] = useState(null);
-  const [channelIcon, setChannelIcon] = useState(null);
+  const [views, setViews] = useState("");
+  const [duration, setDuration] = useState("");
+  const [channelIcon, setChannelIcon] = useState("");
 
   const seconds = moment.duration(duration).asSeconds();
   const videoDuration = moment.utc(seconds * 1000).format("mm:ss");
 
   const videoId = id?.videoId || id; //hack to get the proper id
 
+  const history = useHistory();
+
   useEffect(() => {
-    const get_video_details = async () => {
-      const {
-        data: { items },
-      } = await request("/videos", {
-        params: {
-          part: "contentDetails,statistics",
-          id: videoId,
-        },
+    request("/videos", {
+      params: {
+        part: "contentDetails,statistics",
+        id: videoId,
+      },
+    })
+      .then((data) => {
+        setViews(data.data.items[0]?.statistics.viewCount); //in all these cases items[0] is unnecessary but required for the youtube api to work
+        setDuration(data.data.items[0]?.contentDetails.duration);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
-      setViews(items[0].statistics.viewCount); //in all these cases items[0] is unnecessary but required for the youtube api to work
-      setDuration(items[0].contentDetails.duration);
-    };
-    get_video_details();
   }, [videoId]);
 
   useEffect(() => {
-    const get_channel_details = async () => {
-      const {
-        data: { items },
-      } = await request.get("/channels", {
+    request
+      .get("/channels", {
         params: {
           part: "snippet",
           id: channelId,
         },
+      })
+      .then((data) => {
+        setChannelIcon(data.data.items[0].snippet.thumbnails.default);
       });
-      setChannelIcon(items[0].snippet.thumbnails.default);
-    };
-    get_channel_details();
   }, [channelId]);
 
+  const handleVideoClick = () => {
+    history.push(`/watch/${videoId}`);
+  };
+
   return (
-    <div className="video">
+    <div className="video" onClick={handleVideoClick}>
       <div className="video__top">
         <img src={medium.url} alt="Video Preview" />
         <span>{videoDuration}</span>
