@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router";
 import WatchScreen from "./screens/WatchScreen/WatchScreen";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
+import SubsScreen from "./screens/SubscriptionsScreen/SubsScreen";
 
 function App() {
   const Layout = ({ children }) => {
@@ -57,6 +58,11 @@ function App() {
       <Route exact path="/search/:id">
         <Layout>
           <SearchScreen />
+        </Layout>
+      </Route>
+      <Route exact path="/feed/subscriptions">
+        <Layout>
+          <SubsScreen />
         </Layout>
       </Route>
       <Route>
