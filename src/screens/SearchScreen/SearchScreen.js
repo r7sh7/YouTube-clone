@@ -7,13 +7,13 @@ import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import { getSearchedVideos } from "../../store/actions/videoActions";
 
 const SearchScreen = () => {
-  const query = useParams();
+  const { text } = useParams();
   const dispatch = useDispatch();
   const { videos, loading } = useSelector((state) => state.searchedVideos);
 
   useEffect(() => {
-    dispatch(getSearchedVideos(query));
-  }, [dispatch, query]);
+    dispatch(getSearchedVideos(text));
+  }, [dispatch, text]);
 
   return (
     <Container>

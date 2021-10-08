@@ -56,7 +56,7 @@ function App() {
           <WatchScreen />
         </Layout>
       </Route>
-      <Route exact path="/search/:id">
+      <Route exact path="/search/:text">
         <Layout>
           <SearchScreen />
         </Layout>
