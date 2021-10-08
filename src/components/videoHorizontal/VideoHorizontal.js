@@ -10,7 +10,7 @@ const VideoHorizontal = ({ video, channelVideos }) => {
     id,
     snippet: {
       publishedAt,
-      channelId,
+      // channelId,
       title,
       thumbnails: { medium },
       channelTitle,
@@ -20,7 +20,7 @@ const VideoHorizontal = ({ video, channelVideos }) => {
 
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
-  const [channelIcon, setChannelIcon] = useState(null);
+  // const [channelIcon, setChannelIcon] = useState(null);
 
   const history = useHistory();
 
@@ -45,18 +45,18 @@ const VideoHorizontal = ({ video, channelVideos }) => {
       });
   }, [videoId]);
 
-  useEffect(() => {
-    request
-      .get("/channels", {
-        params: {
-          part: "snippet",
-          id: channelId,
-        },
-      })
-      .then((data) => {
-        setChannelIcon(data.data.items[0].snippet.thumbnails.default);
-      });
-  }, [channelId]);
+  // useEffect(() => {
+  //   request
+  //     .get("/channels", {
+  //       params: {
+  //         part: "snippet",
+  //         id: channelId,
+  //       },
+  //     })
+  //     .then((data) => {
+  //       setChannelIcon(data.data.items[0].snippet.thumbnails.default);
+  //     });
+  // }, [channelId]);
 
   const handleVideoClick = () => {
     history.push(`/watch/${videoId}`);
