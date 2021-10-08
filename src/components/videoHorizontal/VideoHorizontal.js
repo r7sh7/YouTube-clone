@@ -10,7 +10,7 @@ const VideoHorizontal = ({ video, channelVideos }) => {
     id,
     snippet: {
       publishedAt,
-      // channelId,
+      channelId,
       title,
       thumbnails: { medium },
       channelTitle,
