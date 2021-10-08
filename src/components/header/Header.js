@@ -10,7 +10,8 @@ const Header = ({ handleToggleSidebar }) => {
   const { user } = useSelector((state) => state.auth);
   const [text, setText] = useState("");
   const history = useHistory();
-  const searchHandler = () => {
+  const searchHandler = (e) => {
+    e.preventDefault();
     history.push(`/search/${text}`);
   };
   return (
