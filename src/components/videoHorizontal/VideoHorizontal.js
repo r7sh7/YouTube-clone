@@ -5,15 +5,16 @@ import { useHistory } from "react-router";
 import request from "../../api";
 import "./_videoHorizontal.scss";
 
-const VideoHorizontal = ({ video }) => {
+const VideoHorizontal = ({ video, channelVideos }) => {
   const {
-    id: { videoId },
+    id,
     snippet: {
       publishedAt,
       channelId,
       title,
       thumbnails: { medium },
       channelTitle,
+      resourceId,
     },
   } = video;
 
@@ -25,6 +26,8 @@ const VideoHorizontal = ({ video }) => {
 
   const seconds = moment.duration(duration).asSeconds();
   const videoDuration = moment.utc(seconds * 1000).format("mm:ss");
+
+  const videoId = channelVideos ? resourceId?.videoId : id.videoId;
 
   useEffect(() => {
     request("/videos", {
@@ -56,7 +59,7 @@ const VideoHorizontal = ({ video }) => {
   }, [channelId]);
 
   const handleVideoClick = () => {
-    history.push(`/watch/${videoId}`);
+    history.push(`/watch/${id.videoId}`);
   };
 
   return (

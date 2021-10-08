@@ -1,4 +1,7 @@
 import {
+  CHANNEL_VIDEOS_FAILURE,
+  CHANNEL_VIDEOS_REQUEST,
+  CHANNEL_VIDEOS_SUCCESS,
   HOME_VIDEOS_FAILURE,
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_SUCCESS,
@@ -125,6 +128,35 @@ export const searchedVideosReducer = (state = searchedVideosState, action) => {
         loading: false,
       };
     case SEARCHED_VIDEOS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const channelVideosState = {
+  loading: true,
+  videos: [],
+};
+
+export const channelVideosReducer = (state = channelVideosState, action) => {
+  switch (action.type) {
+    case CHANNEL_VIDEOS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CHANNEL_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        videos: action.payload,
+        loading: false,
+      };
+    case CHANNEL_VIDEOS_FAILURE:
       return {
         ...state,
         loading: false,

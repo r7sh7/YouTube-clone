@@ -9,6 +9,14 @@
   background-color: $black-secondary;
   transition: transform 0.2s ease-in;
 
+  a {
+    color: $text-color;
+    text-decoration: none;
+    &:hover {
+      color: $text-color;
+    }
+  }
+
   &.open {
     transform: translateX(0);
   }

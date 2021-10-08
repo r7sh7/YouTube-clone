@@ -10,19 +10,17 @@ import {
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/actions/authActions";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ toggleSidebar }) => {
-  const component = (icon, title) => (
-    <li>
+  const component = (icon, title, clickHandler) => (
+    <li onClick={clickHandler}>
       {icon}
       <span>{title}</span>
     </li>
   );
 
   const dispatch = useDispatch();
-  const history = useHistory();
   const logoutHandler = () => {
     dispatch(logout());
   };

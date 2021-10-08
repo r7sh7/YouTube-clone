@@ -11,6 +11,7 @@ import { Redirect, useHistory } from "react-router";
 import WatchScreen from "./screens/WatchScreen/WatchScreen";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import SubsScreen from "./screens/SubscriptionsScreen/SubsScreen";
+import ChannelScreen from "./screens/ChannelScreen/ChannelScreen";
 
 function App() {
   const Layout = ({ children }) => {
@@ -63,6 +64,11 @@ function App() {
       <Route exact path="/feed/subscriptions">
         <Layout>
           <SubsScreen />
+        </Layout>
+      </Route>
+      <Route exact path="/channel/:channelId">
+        <Layout>
+          <ChannelScreen />
         </Layout>
       </Route>
       <Route>

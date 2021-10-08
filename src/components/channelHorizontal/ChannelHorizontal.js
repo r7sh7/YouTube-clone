@@ -4,12 +4,11 @@ import "./_channelHorizontal.scss";
 
 const ChannelHorizontal = ({ channel }) => {
   const {
-    id,
     snippet: {
-      channelId,
       title,
       description,
       thumbnails: { medium },
+      resourceId: { channelId },
     },
     contentDetails: { totalItemCount },
   } = channel;
@@ -17,7 +16,7 @@ const ChannelHorizontal = ({ channel }) => {
   const history = useHistory();
 
   const handleChannelClick = () => {
-    history.push(`/channel/${id}`);
+    history.push(`/channel/${channelId}`);
   };
 
   return (
