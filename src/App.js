@@ -2,16 +2,16 @@ import { Container } from "react-bootstrap";
 import "./_app.scss";
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
-import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import HomeScreen from "./screens/HomeScreen/HomeScreen.js";
 import { useEffect, useState } from "react";
-import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import LoginScreen from "./screens/LoginScreen/LoginScreen.js";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router";
-import WatchScreen from "./screens/WatchScreen/WatchScreen";
-import SearchScreen from "./screens/SearchScreen/SearchScreen";
-import SubsScreen from "./screens/SubscriptionsScreen/SubsScreen";
-import ChannelScreen from "./screens/ChannelScreen/ChannelScreen";
+import WatchScreen from "./screens/WatchScreen/WatchScreen.js";
+import SearchScreen from "./screens/SearchScreen/SearchScreen.js";
+import SubsScreen from "./screens/SubscriptionsScreen/SubsScreen.js";
+import ChannelScreen from "./screens/ChannelScreen/ChannelScreen.js";
 
 function App() {
   const Layout = ({ children }) => {
