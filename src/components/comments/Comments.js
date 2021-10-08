@@ -34,7 +34,7 @@ const Comments = ({ videoId, commentCount }) => {
     <div className="comments">
       <p>{numeral(commentCount).format("0.a")} Comments</p>
       <div className="comments__form">
-        <img src={user.photoURL} alt="profile pic" />
+        <img src={user?.photoURL} alt="profile pic" />
         <form onSubmit={handleFormSubmit}>
           <input
             type="text"

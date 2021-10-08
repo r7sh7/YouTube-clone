@@ -59,7 +59,7 @@ const VideoHorizontal = ({ video, channelVideos }) => {
   }, [channelId]);
 
   const handleVideoClick = () => {
-    history.push(`/watch/${id.videoId}`);
+    history.push(`/watch/${videoId}`);
   };
 
   return (
