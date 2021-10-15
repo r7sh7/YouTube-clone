@@ -27,6 +27,7 @@ export const getPopularVideos = () => async (dispatch) => {
         regionCode: "IN",
         maxResults: 20,
         pageToken: "",
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     dispatch({
@@ -52,6 +53,7 @@ export const getVideosByCategory = (keyword) => {
           pageToken: getState().homeVideos.nextPageToken,
           q: keyword,
           type: "video",
+          key: process.env.REACT_APP_YT_API_KEY,
         },
       });
       dispatch({
@@ -75,6 +77,7 @@ export const getVideoById = (id) => async (dispatch) => {
       params: {
         part: "snippet,statistics",
         id,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     dispatch({ type: SELECTED_VIDEO_SUCCESS, payload: data.items[0] });
@@ -92,6 +95,7 @@ export const getRelatedVideos = (id) => async (dispatch) => {
         relatedToVideoId: id,
         maxResults: 15,
         type: "video",
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     dispatch({ type: RELATED_VIDEO_SUCCESS, payload: data.items });
@@ -110,6 +114,7 @@ export const getSearchedVideos = (keyword) => {
           maxResults: 20,
           q: keyword,
           type: "channel,video",
+          key: process.env.REACT_APP_YT_API_KEY,
         },
       });
       console.log(data.items);
@@ -132,6 +137,7 @@ export const getVideosByChannel = (id) => async (dispatch) => {
       params: {
         part: "contentDetails",
         id,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     const uploadPlaylistId = items[0].contentDetails.relatedPlaylists.uploads;
@@ -141,6 +147,7 @@ export const getVideosByChannel = (id) => async (dispatch) => {
         part: "contentDetails,snippet",
         playlistId: uploadPlaylistId,
         maxResults: 30,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     console.log(data.items);

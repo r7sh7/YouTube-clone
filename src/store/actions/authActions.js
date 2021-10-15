@@ -6,7 +6,7 @@ import {
   LOGOUT,
 } from "../constants";
 
-export const login = (dispatch) => {
+export const login = () => {
   return (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
     provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
@@ -29,7 +29,7 @@ export const login = (dispatch) => {
   };
 };
 
-export const logout = (dispatch) => {
+export const logout = () => {
   return (dispatch) => {
     auth.signOut().then(() => {
       dispatch({ type: LOGOUT });

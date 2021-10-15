@@ -34,6 +34,7 @@ const Video = ({ video }) => {
       params: {
         part: "contentDetails,statistics",
         id: videoId,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     })
       .then((data) => {
@@ -51,6 +52,7 @@ const Video = ({ video }) => {
         params: {
           part: "snippet",
           id: channelId,
+          key: process.env.REACT_APP_YT_API_KEY,
         },
       })
       .then((data) => {

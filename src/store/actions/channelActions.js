@@ -16,6 +16,7 @@ export const getChannelDetails = (id) => async (dispatch) => {
       params: {
         part: "snippet,statistics,contentDetails",
         id,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     dispatch({ type: CHANNEL_DETAILS_SUCCESS, payload: data.items[0] });
@@ -31,6 +32,7 @@ export const getSubscriptionStatus = (id) => async (dispatch, getState) => {
         part: "snippet",
         forChannelId: id,
         mine: true,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
       headers: {
         Authorization: `Bearer ${getState().auth.accessToken}`,
@@ -52,6 +54,7 @@ export const getSubscriptionList = () => async (dispatch, getState) => {
       params: {
         part: "snippet,contentDetails",
         mine: true,
+        key: process.env.REACT_APP_YT_API_KEY,
       },
       headers: {
         Authorization: `Bearer ${getState().auth.accessToken}`,
