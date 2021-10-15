@@ -14,7 +14,6 @@ export const getCommentsByVideoId = (id) => async (dispatch) => {
       params: {
         part: "snippet",
         videoId: id,
-        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     dispatch({ type: COMMENT_LIST_SUCCESS, payload: data.items });
@@ -39,7 +38,6 @@ export const addComment = (id, text) => async (dispatch, getState) => {
     await request.post("/commentThreads", obj, {
       params: {
         part: "snippet",
-        key: process.env.REACT_APP_YT_API_KEY,
       },
       headers: {
         Authorization: `Bearer ${getState().auth.accessToken}`,

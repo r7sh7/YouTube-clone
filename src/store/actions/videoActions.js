@@ -27,7 +27,6 @@ export const getPopularVideos = () => async (dispatch) => {
         regionCode: "IN",
         maxResults: 20,
         pageToken: "",
-        key: process.env.REACT_APP_YT_API_KEY,
       },
     });
     dispatch({
@@ -113,7 +112,6 @@ export const getSearchedVideos = (keyword) => {
           type: "channel,video",
         },
       });
-      console.log(data.items);
       dispatch({
         type: SEARCHED_VIDEOS_SUCCESS,
         payload: data.items,
@@ -144,7 +142,6 @@ export const getVideosByChannel = (id) => async (dispatch) => {
         maxResults: 30,
       },
     });
-    console.log(data.items);
     dispatch({ type: CHANNEL_VIDEOS_SUCCESS, payload: data.items });
   } catch (err) {
     dispatch({ type: CHANNEL_VIDEOS_FAILURE, payload: err.message });
