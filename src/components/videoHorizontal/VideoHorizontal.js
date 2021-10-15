@@ -34,7 +34,6 @@ const VideoHorizontal = ({ video, channelVideos }) => {
       params: {
         part: "contentDetails,statistics",
         id: videoId,
-        key: process.env.REACT_APP_YT_API_KEY,
       },
     })
       .then((data) => {
