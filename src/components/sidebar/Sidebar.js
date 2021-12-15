@@ -11,18 +11,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../../store/actions/authActions";
 import { useHistory } from "react-router";
-import { useState } from "react";
 import { RiAccountCircleLine } from "react-icons/ri";
-import { useEffect } from "react";
 
-const Sidebar = ({ toggleSidebar }) => {
+const Sidebar = ({ toggleSidebar, active }) => {
   const { user } = useSelector((state) => state.auth);
   const history = useHistory();
-  const [active, setActive] = useState("Home");
-
-  useEffect(() => {
-    setActive("Home");
-  }, [user]);
 
   const component = (icon, title, clickHandler) => (
     <li onClick={clickHandler} className={active === title ? "active" : ""}>
@@ -38,27 +31,19 @@ const Sidebar = ({ toggleSidebar }) => {
   };
 
   const loginClickHandler = () => {
-    setActive("Home");
     dispatch(login());
   };
 
   const handleClick = (title) => {
-    setActive(title);
-    if (title === "Home") {
-      history.push("/");
-    } else if (user === null) {
-      history.push("/login");
-    } else {
-      switch (title) {
-        case "Home":
-          history.push("/");
-          break;
-        case "Subscriptions":
-          history.push("/feed/subscriptions");
-          break;
-        default:
-          history.push("/");
-      }
+    switch (title) {
+      case "Home":
+        history.push("/");
+        break;
+      case "Subscriptions":
+        history.push("/feed/subscriptions");
+        break;
+      default:
+        history.push("/");
     }
   };
 

@@ -6,13 +6,17 @@ import CategoriesBar from "../../components/categoriesbar/CategoriesBar";
 import Video from "../../components/video/Video";
 import { getPopularVideos } from "../../store/actions/videoActions";
 
-const HomeScreen = () => {
+const HomeScreen = ({ setActive }) => {
   const dispatch = useDispatch();
   const { videos } = useSelector((state) => state.homeVideos);
 
   useEffect(() => {
     dispatch(getPopularVideos());
   }, [dispatch]);
+
+  useEffect(() => {
+    setActive("Home");
+  });
   return (
     <Container>
       <CategoriesBar />

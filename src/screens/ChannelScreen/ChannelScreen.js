@@ -6,13 +6,17 @@ import { useParams } from "react-router";
 import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import { getVideosByChannel } from "../../store/actions/videoActions";
 
-const ChannelScreen = () => {
+const ChannelScreen = ({ setActive }) => {
   const dispatch = useDispatch();
   const { channelId } = useParams();
   const { videos, loading } = useSelector((state) => state.channelVideos);
   useEffect(() => {
     dispatch(getVideosByChannel(channelId));
   }, [dispatch, channelId]);
+  useEffect(() => {
+    setActive("");
+  });
+
   return (
     <Container>
       {!loading &&

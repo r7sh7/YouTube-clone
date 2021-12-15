@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import { getSearchedVideos } from "../../store/actions/videoActions";
 
-const SearchScreen = () => {
+const SearchScreen = ({ setActive }) => {
   const { text } = useParams();
   const dispatch = useDispatch();
   const { videos, loading } = useSelector((state) => state.searchedVideos);
@@ -14,6 +14,10 @@ const SearchScreen = () => {
   useEffect(() => {
     dispatch(getSearchedVideos(text));
   }, [dispatch, text]);
+
+  useEffect(() => {
+    setActive("");
+  });
 
   return (
     <Container>

@@ -11,7 +11,7 @@ import {
 } from "../../store/actions/videoActions";
 import "./watchScreen.scss";
 
-const WatchScreen = () => {
+const WatchScreen = ({ setActive }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { video, loading } = useSelector((state) => state.selectedVideo);
@@ -23,6 +23,10 @@ const WatchScreen = () => {
     dispatch(getVideoById(id));
     dispatch(getRelatedVideos(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    setActive("");
+  });
 
   return (
     <Row>

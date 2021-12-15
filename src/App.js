@@ -11,8 +11,12 @@ import SearchScreen from "./screens/SearchScreen/SearchScreen.js";
 import SubsScreen from "./screens/SubscriptionsScreen/SubsScreen.js";
 import ChannelScreen from "./screens/ChannelScreen/ChannelScreen.js";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import { useSelector } from "react-redux";
 
 function App() {
+  const [active, setActive] = useState("");
+  const { user } = useSelector((state) => state.auth);
+
   const Layout = ({ children }) => {
     const [toggleSidebar, setToggleSidebar] = useState(false);
     const handleToggleSidebar = () => setToggleSidebar(!toggleSidebar);
@@ -23,7 +27,8 @@ function App() {
         <div className="app__container">
           <Sidebar
             toggleSidebar={toggleSidebar}
-            handleToggleSidebar={handleToggleSidebar}
+            active={active}
+            setActive={setActive}
           />
           <Container fluid className="app__main">
             {children}
@@ -33,45 +38,35 @@ function App() {
     );
   };
 
-  // const { accessToken, loading } = useSelector((state) => state.auth);
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   if (!accessToken && !loading) {
-  //     history.push("/login");
-  //   }
-  // }, [accessToken, loading, history]);
-
   return (
     <Switch>
       <Route exact path="/">
         <Layout>
-          <HomeScreen />
-        </Layout>
-      </Route>
-      <Route path="/login">
-        <Layout>
-          <LoginScreen />
+          <HomeScreen setActive={setActive} />
         </Layout>
       </Route>
       <Route exact path="/watch/:id">
         <Layout>
-          <WatchScreen />
+          <WatchScreen setActive={setActive} />
         </Layout>
       </Route>
       <Route exact path="/search/:text">
         <Layout>
-          <SearchScreen />
+          <SearchScreen setActive={setActive} />
         </Layout>
       </Route>
       <Route exact path="/feed/subscriptions">
         <Layout>
-          <SubsScreen />
+          {user !== null ? (
+            <SubsScreen setActive={setActive} />
+          ) : (
+            <LoginScreen setActive={setActive} value="Subscriptions" />
+          )}
         </Layout>
       </Route>
       <Route exact path="/channel/:channelId">
         <Layout>
-          <ChannelScreen />
+          <ChannelScreen setActive={setActive} />
         </Layout>
       </Route>
       <Route>

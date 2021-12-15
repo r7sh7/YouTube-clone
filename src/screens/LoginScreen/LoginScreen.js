@@ -1,24 +1,18 @@
 import React, { useEffect } from "react";
 import "./loginScreen.scss";
 import { RiAccountCircleLine } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../store/actions/authActions";
 import { RiLoginBoxLine } from "react-icons/ri";
-import { useHistory } from "react-router-dom";
 
-const LoginScreen = () => {
-  const { user } = useSelector((state) => state.auth);
-  const history = useHistory();
-
+const LoginScreen = ({ setActive, value }) => {
   const dispatch = useDispatch();
   const loginClickHandler = () => {
     dispatch(login());
   };
 
   useEffect(() => {
-    if (user !== null) {
-      history.push("/");
-    }
+    setActive(value);
   });
 
   return (
