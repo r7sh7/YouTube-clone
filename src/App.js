@@ -3,15 +3,14 @@ import "./_app.scss";
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import HomeScreen from "./screens/HomeScreen/HomeScreen.js";
-import { useEffect, useState } from "react";
-import LoginScreen from "./screens/LoginScreen/LoginScreen.js";
+import { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router";
+import { Redirect } from "react-router";
 import WatchScreen from "./screens/WatchScreen/WatchScreen.js";
 import SearchScreen from "./screens/SearchScreen/SearchScreen.js";
 import SubsScreen from "./screens/SubscriptionsScreen/SubsScreen.js";
 import ChannelScreen from "./screens/ChannelScreen/ChannelScreen.js";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
 
 function App() {
   const Layout = ({ children }) => {
@@ -34,14 +33,14 @@ function App() {
     );
   };
 
-  const { accessToken, loading } = useSelector((state) => state.auth);
-  const history = useHistory();
+  // const { accessToken, loading } = useSelector((state) => state.auth);
+  // const history = useHistory();
 
-  useEffect(() => {
-    if (!accessToken && !loading) {
-      history.push("/login");
-    }
-  }, [accessToken, loading, history]);
+  // useEffect(() => {
+  //   if (!accessToken && !loading) {
+  //     history.push("/login");
+  //   }
+  // }, [accessToken, loading, history]);
 
   return (
     <Switch>
@@ -50,7 +49,11 @@ function App() {
           <HomeScreen />
         </Layout>
       </Route>
-      <Route path="/login" component={LoginScreen} />
+      <Route path="/login">
+        <Layout>
+          <LoginScreen />
+        </Layout>
+      </Route>
       <Route exact path="/watch/:id">
         <Layout>
           <WatchScreen />

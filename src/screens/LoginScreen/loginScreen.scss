@@ -1,48 +1,30 @@
 @import "../../base";
 
-.login {
-  height: 100vh;
+.main {
   display: grid;
   place-items: center;
+  height: 100%;
 
-  &__container {
-    background-color: $black-secondary;
-    padding: 4rem;
+  &__content {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     h1 {
-      text-align: center;
+      margin-top: 1rem;
     }
-
-    img {
-      width: 10rem;
-    }
-
     button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 16rem;
-      height: 3rem;
-      margin: 1rem 0;
-      font-size: 1.2rem;
-      border: 1px solid $border-color;
-      color: $text-color;
-      border-radius: 2rem;
-      padding: 1rem;
       background: transparent;
+      color: rgb(28, 107, 226);
+      border: 0.1px solid rgb(28, 107, 226);
+      padding: 0.5rem;
+      text-align: center;
+      width: 7rem;
 
-      img {
-        width: 2rem;
-        margin-right: 1rem;
-      }
-
-      &:hover {
-        border: 1px solid #fff;
-        background-color: $border-color;
-        color: #fff;
+      div {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
       }
     }
   }

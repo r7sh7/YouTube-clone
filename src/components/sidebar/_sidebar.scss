@@ -6,16 +6,16 @@
   width: 275px;
   height: 90vh;
   padding-top: 2rem;
-  background-color: $black-secondary;
+  background-color: $black-primary;
   transition: transform 0.2s ease-in;
 
-  a {
-    color: $text-color;
-    text-decoration: none;
-    &:hover {
-      color: $text-color;
-    }
-  }
+  // a {
+  //   color: $text-color;
+  //   text-decoration: none;
+  //   &:hover {
+  //     color: $text-color;
+  //   }
+  // }
 
   &.open {
     transform: translateX(0);
@@ -29,6 +29,11 @@
     margin: 0.2rem 0;
     cursor: pointer;
 
+    &.active {
+      background-color: $border-color;
+      color: $text-color;
+    }
+
     span {
       margin-left: 1rem;
       font-size: 14px;
@@ -41,6 +46,17 @@
     }
   }
 
+  &__auth {
+    padding: 0.6rem 1.5rem;
+    button {
+      background: transparent;
+      color: rgb(28, 107, 226);
+      border: 0.1px solid rgb(28, 107, 226);
+      padding: 0.5rem;
+      text-align: center;
+      width: 7rem;
+    }
+  }
   hr {
     color: $border-color;
   }

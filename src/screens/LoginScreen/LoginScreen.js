@@ -1,32 +1,40 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { login } from "../../store/actions/authActions";
 import "./loginScreen.scss";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/actions/authActions";
+import { RiLoginBoxLine } from "react-icons/ri";
+import { useHistory } from "react-router-dom";
 
 const LoginScreen = () => {
+  const { user } = useSelector((state) => state.auth);
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const loginClickHandler = () => {
     dispatch(login());
   };
 
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  const history = useHistory();
   useEffect(() => {
-    if (accessToken) {
+    if (user !== null) {
       history.push("/");
     }
-  }, [accessToken, history]);
+  });
 
   return (
-    <div className="login">
-      <div className="login__container">
-        <h1>Welcome to the YouTube Clone</h1>
-        <img src="/images/youtube_logo.png" alt="logo" />
+    <div className="main">
+      <div className="main__content">
+        <RiLoginBoxLine size={100} />
+        <h1>Don't miss out</h1>
+        <p>
+          Sign in to access this feature and have a more personalised user
+          experience
+        </p>
         <button onClick={loginClickHandler}>
-          <img src="/images/google.svg" alt="google-logo" />
-          Log in with Google
+          <div>
+            <RiAccountCircleLine size={28} />
+            <span>SIGN IN</span>
+          </div>
         </button>
       </div>
     </div>

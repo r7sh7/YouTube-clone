@@ -8,13 +8,24 @@ import {
   MdHistory,
   MdExitToApp,
 } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/actions/authActions";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "../../store/actions/authActions";
+import { useHistory } from "react-router";
+import { useState } from "react";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { useEffect } from "react";
 
 const Sidebar = ({ toggleSidebar }) => {
+  const { user } = useSelector((state) => state.auth);
+  const history = useHistory();
+  const [active, setActive] = useState("Home");
+
+  useEffect(() => {
+    setActive("Home");
+  }, [user]);
+
   const component = (icon, title, clickHandler) => (
-    <li onClick={clickHandler}>
+    <li onClick={clickHandler} className={active === title ? "active" : ""}>
       {icon}
       <span>{title}</span>
     </li>
@@ -23,19 +34,54 @@ const Sidebar = ({ toggleSidebar }) => {
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(logout());
+    history.push("/");
+  };
+
+  const loginClickHandler = () => {
+    setActive("Home");
+    dispatch(login());
+  };
+
+  const handleClick = (title) => {
+    setActive(title);
+    if (title === "Home") {
+      history.push("/");
+    } else if (user === null) {
+      history.push("/login");
+    } else {
+      switch (title) {
+        case "Home":
+          history.push("/");
+          break;
+        case "Subscriptions":
+          history.push("/feed/subscriptions");
+          break;
+        default:
+          history.push("/");
+      }
+    }
   };
 
   return (
     <nav className={toggleSidebar ? "sidebar open" : "sidebar"}>
-      <Link to="/">{component(<MdHome size={23} />, "Home")}</Link>
-      <Link to="/feed/subscriptions">
-        {component(<MdSubscriptions size={23} />, "Subscriptions")}
-      </Link>
-      {component(<MdThumbUp size={23} />, "Liked")}
-      {component(<MdExplore size={23} />, "Explore")}
-      {component(<MdHistory size={23} />, "History")}
+      {component(<MdHome size={23} />, "Home", () => handleClick("Home"))}
+      {component(<MdSubscriptions size={23} />, "Subscriptions", () =>
+        handleClick("Subscriptions")
+      )}
       <hr />
-      {component(<MdExitToApp size={23} />, "Log out", logoutHandler)}
+      {user != null ? (
+        component(<MdExitToApp size={23} />, "Log out", logoutHandler)
+      ) : (
+        <div className="sidebar__auth">
+          <p>Sign in to access all the features</p>
+          <button onClick={loginClickHandler}>
+            <div>
+              <RiAccountCircleLine size={28} />
+              <span>SIGN IN</span>
+            </div>
+          </button>
+        </div>
+      )}
       <hr />
     </nav>
   );
