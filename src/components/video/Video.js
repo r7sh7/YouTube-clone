@@ -6,7 +6,7 @@ import numeral from "numeral";
 import request from "../../api";
 import { useHistory } from "react-router";
 
-const Video = ({ video }) => {
+const Video = ({ video, channelVideos }) => {
   const {
     id,
     snippet: {
@@ -15,6 +15,7 @@ const Video = ({ video }) => {
       channelTitle,
       publishedAt,
       thumbnails: { medium },
+      resourceId,
     },
   } = video;
 
@@ -25,8 +26,8 @@ const Video = ({ video }) => {
   const seconds = moment.duration(duration).asSeconds();
   const videoDuration = moment.utc(seconds * 1000).format("mm:ss");
 
-  const videoId = id?.videoId || id; //hack to get the proper id
-
+  // const videoId = id?.videoId || id; //hack to get the proper id
+  const videoId = channelVideos ? resourceId?.videoId : id?.videoId || id;
   const history = useHistory();
 
   useEffect(() => {
@@ -69,12 +70,14 @@ const Video = ({ video }) => {
         <span>{videoDuration}</span>
       </div>
       <div className="video__description">
-        <img src={channelIcon?.url} alt="channel" />
+        {!channelVideos && <img src={channelIcon?.url} alt="channel" />}
         <div className="details">
           <div className="details__title">{title}</div>
-          <div className="details__channel">
-            <span>{channelTitle}</span>
-          </div>
+          {!channelVideos && (
+            <div className="details__channel">
+              <span>{channelTitle}</span>
+            </div>
+          )}
           <div className="details__stats">
             <span>
               <AiFillEye /> {numeral(views).format("0.a")} Views •

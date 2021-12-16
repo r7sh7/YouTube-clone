@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import { getVideosByChannel } from "../../store/actions/videoActions";
+import { Col, Container, Row } from "react-bootstrap";
+import Video from "../../components/video/Video";
 
 const ChannelScreen = ({ setActive }) => {
   const dispatch = useDispatch();
@@ -19,10 +19,15 @@ const ChannelScreen = ({ setActive }) => {
 
   return (
     <Container>
-      {!loading &&
-        videos.map((video) => (
-          <VideoHorizontal video={video} key={video.id} channelVideos />
-        ))}
+      {!loading && (
+        <Row>
+          {videos.map((video) => (
+            <Col lg={3} md={4}>
+              <Video video={video} key={video.id} channelVideos />
+            </Col>
+          ))}
+        </Row>
+      )}
     </Container>
   );
 };
