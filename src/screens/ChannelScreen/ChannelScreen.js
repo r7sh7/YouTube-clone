@@ -6,7 +6,10 @@ import { useParams } from "react-router";
 import { getVideosByChannel } from "../../store/actions/videoActions";
 import { Col, Container, Row } from "react-bootstrap";
 import Video from "../../components/video/Video";
-import { getChannelDetails } from "../../store/actions/channelActions";
+import {
+  getChannelDetails,
+  getSubscriptionStatus,
+} from "../../store/actions/channelActions";
 import numeral from "numeral";
 
 const ChannelScreen = ({ setActive }) => {
@@ -16,9 +19,12 @@ const ChannelScreen = ({ setActive }) => {
   const { snippet, statistics } = useSelector(
     (state) => state.channelDetails.channel
   );
+  const { subscriptionStatus } = useSelector((state) => state.channelDetails);
+
   useEffect(() => {
     dispatch(getVideosByChannel(channelId));
     dispatch(getChannelDetails(channelId));
+    dispatch(getSubscriptionStatus(channelId));
   }, [dispatch, channelId]);
   useEffect(() => {
     setActive("");
@@ -36,7 +42,15 @@ const ChannelScreen = ({ setActive }) => {
             </span>
           </div>
         </div>
-        <button>SUBSCRIBED</button>
+        <button
+          className={
+            subscriptionStatus
+              ? "channelHeader__subscribed"
+              : "channelHeader__notSubscribed"
+          }
+        >
+          {subscriptionStatus ? "SUBSCRIBED" : "SUBSCRIBE"}
+        </button>
       </div>
       <hr />
       <Container>

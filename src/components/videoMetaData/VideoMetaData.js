@@ -10,16 +10,23 @@ import {
   getSubscriptionStatus,
 } from "../../store/actions/channelActions";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+
 const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
   const { publishedAt, channelId, title, description, channelTitle } = snippet;
   const { viewCount, likeCount, dislikeCount } = statistics;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { snippet: channelSnippet, statistics: channelStatistics } =
     useSelector((state) => state.channelDetails.channel);
 
   const { subscriptionStatus } = useSelector((state) => state.channelDetails);
+
+  const handleChannelClick = () => {
+    history.push(`/channel/${channelId}`);
+  };
 
   useEffect(() => {
     dispatch(getChannelDetails(channelId));
@@ -46,7 +53,10 @@ const VideoMetaData = ({ video: { snippet, statistics }, id }) => {
         </div>
       </div>
       <div className="videoMetaData__channel">
-        <div className="videoMetaData__channel__details">
+        <div
+          className="videoMetaData__channel__details"
+          onClick={handleChannelClick}
+        >
           <img
             src={channelSnippet?.thumbnails.default.url}
             alt="channel icon"
