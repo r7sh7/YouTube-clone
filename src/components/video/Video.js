@@ -38,7 +38,7 @@ const Video = ({ video, channelVideos }) => {
       },
     })
       .then((data) => {
-        setViews(data.data.items[0]?.statistics.viewCount); //in all these cases items[0] is unnecessary but required for the youtube api to work
+        setViews(data.data.items[0]?.statistics.viewCount);
         setDuration(data.data.items[0]?.contentDetails.duration);
       })
       .catch((err) => {

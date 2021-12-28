@@ -45,19 +45,6 @@ const VideoHorizontal = ({ video, channelVideos }) => {
       });
   }, [videoId]);
 
-  // useEffect(() => {
-  //   request
-  //     .get("/channels", {
-  //       params: {
-  //         part: "snippet",
-  //         id: channelId,
-  //       },
-  //     })
-  //     .then((data) => {
-  //       setChannelIcon(data.data.items[0].snippet.thumbnails.default);
-  //     });
-  // }, [channelId]);
-
   const handleVideoClick = () => {
     history.push(`/watch/${videoId}`);
   };
