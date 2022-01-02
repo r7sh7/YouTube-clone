@@ -1,7 +1,7 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCfrRMFSPqfGluiK2bMu00XwRB7_X57EMY",
+  apiKey: "AIzaSyBdMeOrlKXUVNq3bxY69L3xll9-5Rk9EB0",
   authDomain: "yt-clone-1788f.firebaseapp.com",
   projectId: "yt-clone-1788f",
   storageBucket: "yt-clone-1788f.appspot.com",
